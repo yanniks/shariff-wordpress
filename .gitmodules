@@ -1,0 +1,6 @@
+[submodule "backend-php"]
+	path = backend-php
+	url = https://github.com/heiseonline/shariff-backend-php.git
+[submodule "shariff"]
+	path = shariff
+	url = https://github.com/heiseonline/shariff.git
