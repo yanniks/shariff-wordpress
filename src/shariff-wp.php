@@ -12,111 +12,153 @@
  */
 defined('ABSPATH') or die("There is something wrong.");
 function init_locale() {
-	load_plugin_textdomain('shariff', false, basename( dirname( __FILE__ ) ) . '/locale' );
+	load_plugin_textdomain('shariff', false, dirname(plugin_basename(__FILE__)).'/locale' );
 }
 function loadshariff() {
 	 echo '<link href="'.plugins_url( 'dep/shariff.min.css', __FILE__ ).'" rel="stylesheet">'."\n";
 }
-class Shariffwidget extends WP_Widget {
-	function __construct() {
-		parent::__construct(
-			'shariff_widget',
-			_e( 'Shariff Sharing Widget', 'shariff' ),
-			array( 'description' => _e( 'Adds the Shariff sharing Widget to the page', 'shariff' ), )
-		);
+function shariffsharing($content) {
+	extract($args);
+	$services = "[";
+	if (get_option('shariff_gplus',false) == true) {
+		$services = $services.'"googleplus"';
+		$serv = "g";
 	}
-
-	public function widget( $args, $instance ) {
-		extract($args);
-		$services = "[";
-		if ($instance['gplus'] == true) {
-			$services = $services.'"googleplus"';
-			$serv = "g";
+	if (get_option('shariff_fb',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+			$serv = $serv."f";
 		}
-		if ($instance['fb'] == true) {
-			if ($services != "[") {
-				$services = $services.",";
-				$serv = $serv."f";
-			}
-			$services = $services.'"facebook"';
-		}
-		if ($instance['twitter'] == true) {if ($services != "[") {
-				$services = $services.",";
-				$serv = $serv."t";
-			}
-			$services = $services.'"twitter"';
-		}
-		if ($instance['whatsapp'] == true) {
-			if ($services != "[") {
-				$services = $services.",";
-			}
-			$services = $services.'"whatsapp"';
-		}
-		if ($instance['mail'] == true) {
-			if ($services != "[") {
-				$services = $services.",";
-			}
-			$services = $services.'"mail"';
-		}
-		if ($instance['info'] == true) {
-			if ($services != "[") {
-				$services = $services.",";
-			}
-			$services = $services.'"info"';
-		}
-		$services = $services."]";
-		echo '<div id="shariffwidget" class="widget"><div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.$instance['ttl'].'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" lang="'._e('en', 'shariff').'" data-theme="'.$instance['color'].'" data-orientation="'.$instance['orientation'].'"></div></div>';
+		$services = $services.'"facebook"';
 	}
-	public function form( $instance ) {
-		?>
-		<p>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['gplus'], 'on'); ?> id="<?php echo $this->get_field_id('gplus'); ?>" name="<?php echo $this->get_field_name('gplus'); ?>" />
-		    <label for="<?php echo $this->get_field_id('gplus'); ?>">Google+</label><br>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['fb'], 'on'); ?> id="<?php echo $this->get_field_id('fb'); ?>" name="<?php echo $this->get_field_name('fb'); ?>" /> 
-		    <label for="<?php echo $this->get_field_id('fb'); ?>">Facebook</label><br>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['twitter'], 'on'); ?> id="<?php echo $this->get_field_id('twitter'); ?>" name="<?php echo $this->get_field_name('twitter'); ?>" /> 
-		    <label for="<?php echo $this->get_field_id('twitter'); ?>">Twitter</label><br>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['whatsapp'], 'on'); ?> id="<?php echo $this->get_field_id('whatsapp'); ?>" name="<?php echo $this->get_field_name('whatsapp'); ?>" /> 
-		    <label for="<?php echo $this->get_field_id('whatsapp'); ?>">WhatsApp</label><br>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['mail'], 'on'); ?> id="<?php echo $this->get_field_id('mail'); ?>" name="<?php echo $this->get_field_name('mail'); ?>" /> 
-		    <label for="<?php echo $this->get_field_id('mail'); ?>"><?php echo _e('Email', 'shariff');?></label><br>
-		    <input class="checkbox" type="checkbox" <?php checked($instance['info'], 'on'); ?> id="<?php echo $this->get_field_id('info'); ?>" name="<?php echo $this->get_field_name('info'); ?>" /> 
-		    <label for="<?php echo $this->get_field_id('info'); ?>"><?php echo _e('Privacy information', 'shariff');?></label><br><br>
-			<label for="<?php echo $this->get_field_id('color'); ?>"><?php echo _e('Color', 'shariff');?>: </label>
-			<select name="<?php echo $this->get_field_name('color'); ?>">
-				<option value="color" <?php if ($instance['color'] == "color") { echo 'selected'; } ?>><?php echo _e('Colored', 'shariff');?></option>
-				<option value="grey" <?php if ($instance['color'] == "grey") { echo 'selected'; } ?>><?php echo _e('Grey', 'shariff');?></option>
-				<option value="white" <?php if ($instance['color'] == "white") { echo 'selected'; } ?>><?php echo _e('White', 'shariff');?></option>
-			</select><br>
-			<label for="<?php echo $this->get_field_id('orientation'); ?>"><?php echo _e('Orientation', 'shariff');?>: </label>
-			<select name="<?php echo $this->get_field_name('orientation'); ?>">
-				<option value="horizontal" <?php if ($instance['orientation'] == "horizontal") { echo 'selected'; } ?>><?php echo _e('Horizontal', 'shariff');?></option>
-				<option value="vertical" <?php if ($instance['orientation'] == "vertical") { echo 'selected'; } ?>><?php echo _e('Vertical', 'shariff');?></option>
-			</select><br>
-		    <label for="<?php echo $this->get_field_id('twitter'); ?>">TTL: </label><input class="text" type="text" id="<?php echo $this->get_field_id('ttl'); ?>" name="<?php echo $this->get_field_name('ttl'); ?>" value="<?php echo $instance["ttl"]; ?>" /> 
-		    <br>
-		</p>
-		<?php
+	if (get_option('shariff_twitter',false) == true) {if ($services != "[") {
+			$services = $services.",";
+			$serv = $serv."t";
+		}
+		$services = $services.'"twitter"';
 	}
-	public function update( $new_instance, $old_instance ) {
-    	$instance = $old_instance;
-		$instance['twitter'] = $new_instance['twitter'];
-	    $instance['gplus'] = $new_instance['gplus'];
-		$instance['fb'] = $new_instance['fb'];
-		$instance['info'] = $new_instance['info'];
-		$instance['orientation'] = $new_instance['orientation'];
-		$instance['color'] = $new_instance['color'];
-		$instance['mail'] = $new_instance['mail'];
-		$instance['whatsapp'] = $new_instance['whatsapp'];
-		$instance['ttl'] = $new_instance['ttl'];
-		return $instance;
+	if (get_option('shariff_whatsapp',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+		}
+		$services = $services.'"whatsapp"';
 	}
+	if (get_option('shariff_email',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+		}
+		$services = $services.'"mail"';
+	}
+	if (get_option('shariff_info',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+		}
+		$services = $services.'"info"';
+	}
+	$services = $services."]";
+	if (get_option('shariff_beforeafter','before') != 'before') {
+		$content2 = $content;
+	}
+	$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"30").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+	if (get_option('shariff_beforeafter','before') != 'after') {
+		$content2 .= $content;
+	}
+	return $content2;
+	
+}
+function setting_plat_callback() {
+}
+function init_settings() {
+	add_settings_section('shariff_platforms',__('Shariff platforms',"shariff"),'setting_plat_callback','general');
+	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','general','shariff_platforms');
+	add_settings_field('shariff_fb','Facebook','setting_fb_callback','general','shariff_platforms');
+	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','general','shariff_platforms');
+	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','general','shariff_platforms');
+	add_settings_field('shariff_email','E-Mail','setting_email_callback','general','shariff_platforms');
+	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','general');
+	add_settings_field('shariff_info',__('Privacy information',"shariff"),'setting_info_callback','general','shariff_other');
+	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','general','shariff_other');
+	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','general','shariff_other');
+	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','general','shariff_other');
+	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','general','shariff_other');
+	register_setting('general','shariff_gplus');
+	register_setting('general','shariff_fb');
+	register_setting('general','shariff_twitter');
+	register_setting('general','shariff_whatsapp');
+	register_setting('general','shariff_email');
+	register_setting('general','shariff_info');
+	register_setting('general','shariff_color');
+	register_setting('general','shariff_orientation');
+	register_setting('general','shariff_beforeafter');
+	register_setting('general','shariff_ttl');
+}
+function setting_before_callback() {
+	echo '<select name="shariff_beforeafter">
+			<option value="before" ';
+			if (get_option('shariff_beforeafter') == "before") { echo 'selected'; }
+			echo '>'.__("Before","shariff").'</option>
+			<option value="after" ';
+			if (get_option('shariff_beforeafter') == "after") { echo 'selected'; }
+			echo '>'.__("After","shariff").'</option>
+		</select> '.__('Show the sharing buttons before or after the article.',"shariff");
+}
+function checkbox_setting($checkid,$checktitle) {
+	echo '<input name="'.$checkid.'" id="'.$checkid.'" type="checkbox" value="1" class="code" ' . checked( 1, get_option($checkid), false) . ' />';
+}
+function setting_gplus_callback() {
+ 	checkbox_setting('shariff_gplus','Google+');
+}
+function setting_fb_callback() {
+ 	checkbox_setting('shariff_fb','Facebook');
+}
+function setting_twitter_callback() {
+ 	checkbox_setting('shariff_twitter','Twitter');
+}
+function setting_whatsapp_callback() {
+ 	checkbox_setting('shariff_whatsapp','WhatsApp');
+}
+function setting_email_callback() {
+ 	checkbox_setting('shariff_email','E-Mail');
+}
+function setting_info_callback() {
+ 	checkbox_setting('shariff_info','Privacy information');
+}
+function setting_orientation_callback() {
+	echo '<select name="shariff_orientation">
+			<option value="horizontal" ';
+			if (get_option('shariff_orientation') == "horizontal") { echo 'selected'; }
+			echo '>'.__("Horizontal","shariff").'</option>
+			<option value="vertical" ';
+			if (get_option('shariff_orientation') == "vertical") { echo 'selected'; }
+			echo '>'.__("Vertical","shariff").'</option>
+		</select>';
+}
+function setting_ttl_callback() {
+	if (empty(get_option("shariff_ttl"))) {
+		$value = "30";
+	} else {
+		$value = get_option("shariff_ttl");
+	}
+	echo '<input type="number" name="shariff_ttl" value="'.$value.'">';
+}
+function setting_color_callback() {
+	echo '<select name="shariff_color">
+			<option value="color" ';
+			if (get_option('shariff_color') == "color") { echo 'selected'; }
+			echo '>'.__("Colored","shariff").'</option>
+			<option value="grey" ';
+			if (get_option('shariff_color') == "grey") { echo 'selected'; }
+			echo '>'.__('Grey',"shariff").'</option>
+			<option value="white" ';
+			if (get_option('shariff_color') == "white") { echo 'selected'; }
+			echo '>'.__("White","shariff").'</option>
+		</select>';
 }
 function loadjs() {
 	 echo '<script src="'.plugins_url( 'dep/shariff.min.js', __FILE__ ).'"></script>'."\n";
 }
+add_action('admin_init','init_settings');
 add_action('init','init_locale');
 add_action('wp_enqueue_scripts', 'loadshariff');
 add_action('wp_footer','loadjs');
-add_action('widgets_init', create_function('', 'return register_widget("Shariffwidget");')
-);
+add_filter('the_content','shariffsharing');
