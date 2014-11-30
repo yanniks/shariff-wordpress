@@ -20,18 +20,18 @@ function loadshariff() {
 function shariffsharing($content) {
 	extract($args);
 	$services = "[";
-	if (get_option('shariff_gplus',false) == true) {
+	if (get_option('shariff_gplus',true) == true) {
 		$services = $services.'"googleplus"';
 		$serv = "g";
 	}
-	if (get_option('shariff_fb',false) == true) {
+	if (get_option('shariff_fb',true) == true) {
 		if ($services != "[") {
 			$services = $services.",";
 			$serv = $serv."f";
 		}
 		$services = $services.'"facebook"';
 	}
-	if (get_option('shariff_twitter',false) == true) {if ($services != "[") {
+	if (get_option('shariff_twitter',true) == true) {if ($services != "[") {
 			$services = $services.",";
 			$serv = $serv."t";
 		}
@@ -49,7 +49,7 @@ function shariffsharing($content) {
 		}
 		$services = $services.'"mail"';
 	}
-	if (get_option('shariff_info',false) == true) {
+	if (get_option('shariff_info',true) == true) {
 		if ($services != "[") {
 			$services = $services.",";
 		}
@@ -102,26 +102,26 @@ function setting_before_callback() {
 			echo '>'.__("After","shariff").'</option>
 		</select> '.__('Show the sharing buttons before or after the article.',"shariff");
 }
-function checkbox_setting($checkid,$checktitle) {
-	echo '<input name="'.$checkid.'" id="'.$checkid.'" type="checkbox" value="1" class="code" ' . checked( 1, get_option($checkid), false) . ' />';
+function checkbox_setting($checkid,$checktitle,$default) {
+	echo '<input name="'.$checkid.'" id="'.$checkid.'" type="checkbox" value="1" class="code" ' . checked( 1, get_option($checkid,$default), false) . ' />';
 }
 function setting_gplus_callback() {
- 	checkbox_setting('shariff_gplus','Google+');
+ 	checkbox_setting('shariff_gplus','Google+',true);
 }
 function setting_fb_callback() {
- 	checkbox_setting('shariff_fb','Facebook');
+ 	checkbox_setting('shariff_fb','Facebook',true);
 }
 function setting_twitter_callback() {
- 	checkbox_setting('shariff_twitter','Twitter');
+ 	checkbox_setting('shariff_twitter','Twitter',true);
 }
 function setting_whatsapp_callback() {
- 	checkbox_setting('shariff_whatsapp','WhatsApp');
+ 	checkbox_setting('shariff_whatsapp','WhatsApp',false);
 }
 function setting_email_callback() {
- 	checkbox_setting('shariff_email','E-Mail');
+ 	checkbox_setting('shariff_email','E-Mail',false);
 }
 function setting_info_callback() {
- 	checkbox_setting('shariff_info','Privacy information');
+ 	checkbox_setting('shariff_info','Privacy information',true);
 }
 function setting_orientation_callback() {
 	echo '<select name="shariff_orientation">
