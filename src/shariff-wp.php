@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -58,9 +58,16 @@ function shariffsharing($content) {
 	if (get_option('shariff_beforeafter','before') != 'before') {
 		$content2 = $content;
 	}
-	$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"30").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false))) {
+		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"30").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
+	}
+	if ((strpos($content,'/hideshariff') !== false)) {
+		$content2 = str_replace("/hideshariff","hideshariff",$content2);
+	} else {
+		$content2 = str_replace("hideshariff","",$content2);
 	}
 	return $content2;
 	
@@ -68,28 +75,28 @@ function shariffsharing($content) {
 function setting_plat_callback() {
 }
 function init_settings() {
-	add_settings_section('shariff_platforms',__('Shariff platforms',"shariff"),'setting_plat_callback','general');
-	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','general','shariff_platforms');
-	add_settings_field('shariff_fb','Facebook','setting_fb_callback','general','shariff_platforms');
-	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','general','shariff_platforms');
-	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','general','shariff_platforms');
-	add_settings_field('shariff_email','E-Mail','setting_email_callback','general','shariff_platforms');
-	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','general');
-	add_settings_field('shariff_info',__('Privacy information',"shariff"),'setting_info_callback','general','shariff_other');
-	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','general','shariff_other');
-	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','general','shariff_other');
-	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','general','shariff_other');
-	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','general','shariff_other');
-	register_setting('general','shariff_gplus');
-	register_setting('general','shariff_fb');
-	register_setting('general','shariff_twitter');
-	register_setting('general','shariff_whatsapp');
-	register_setting('general','shariff_email');
-	register_setting('general','shariff_info');
-	register_setting('general','shariff_color');
-	register_setting('general','shariff_orientation');
-	register_setting('general','shariff_beforeafter');
-	register_setting('general','shariff_ttl');
+	add_settings_section('shariff_platforms',__('Shariff platforms',"shariff"),'setting_plat_callback','shariff');
+	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_fb','Facebook','setting_fb_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_email','E-Mail','setting_email_callback','shariff','shariff_platforms');
+	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
+	add_settings_field('shariff_info',__('Privacy information',"shariff"),'setting_info_callback','shariff','shariff_other');
+	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','shariff','shariff_other');
+	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','shariff','shariff_other');
+	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','shariff','shariff_other');
+	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','shariff','shariff_other');
+	register_setting('shariff','shariff_gplus');
+	register_setting('shariff','shariff_fb');
+	register_setting('shariff','shariff_twitter');
+	register_setting('shariff','shariff_whatsapp');
+	register_setting('shariff','shariff_email');
+	register_setting('shariff','shariff_info');
+	register_setting('shariff','shariff_color');
+	register_setting('shariff','shariff_orientation');
+	register_setting('shariff','shariff_beforeafter');
+	register_setting('shariff','shariff_ttl');
 }
 function setting_before_callback() {
 	echo '<select name="shariff_beforeafter">
@@ -151,6 +158,22 @@ function setting_color_callback() {
 function loadjs() {
 	 echo '<script src="'.plugins_url( 'dep/shariff.min.js', __FILE__ ).'"></script>'."\n";
 }
+function shariff_options_page() {
+	?>
+	    <div class="wrap">
+	        <h2><?php echo _e("Shariff configuration","shariff")?></h2>
+	        <form action="options.php" method="POST">
+	            <?php settings_fields( 'shariff' ); ?>
+	            <?php do_settings_sections( 'shariff' ); ?>
+	            <?php submit_button(); ?>
+	        </form>
+	    </div>
+	    <?php
+}
+function shariffconfigmenu() {
+	add_options_page('shariff', 'Shariff', 'manage_options', 'shariff', 'shariff_options_page');
+}
+add_action('admin_menu','shariffconfigmenu');
 add_action('admin_init','init_settings');
 add_action('init','init_locale');
 add_action('wp_enqueue_scripts', 'loadshariff');

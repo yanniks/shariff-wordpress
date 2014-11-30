@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shariff\n"
-"POT-Creation-Date: 2014-11-30 11:55+0100\n"
-"PO-Revision-Date: 2014-11-30 12:47+0100\n"
+"POT-Creation-Date: 2014-11-30 21:39+0100\n"
+"PO-Revision-Date: 2014-11-30 21:40+0100\n"
 "Last-Translator: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language-Team: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language: de\n"
@@ -64,14 +64,18 @@ msgstr "Horizontal"
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: shariff-wp.php:148
+#: shariff-wp.php:143
 msgid "Colored"
 msgstr "Farbig"
 
-#: shariff-wp.php:151
+#: shariff-wp.php:146
 msgid "Grey"
 msgstr "Grau"
 
-#: shariff-wp.php:154
+#: shariff-wp.php:149
 msgid "White"
 msgstr "Weiß"
+
+#: shariff-wp.php:158
+msgid "Shariff configuration"
+msgstr "Shariff-Konfiguration"
