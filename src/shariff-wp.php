@@ -18,7 +18,6 @@ function loadshariff() {
 	 echo '<link href="'.plugins_url( 'dep/shariff.min.css', __FILE__ ).'" rel="stylesheet">'."\n";
 }
 function shariffsharing($content) {
-	extract($args);
 	$services = "[";
 	if (get_option('shariff_gplus',true) == true) {
 		$services = $services.'"googleplus"';
