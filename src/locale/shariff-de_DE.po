@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shariff\n"
 "POT-Creation-Date: 2014-11-30 11:55+0100\n"
-"PO-Revision-Date: 2014-11-30 11:55+0100\n"
+"PO-Revision-Date: 2014-11-30 12:47+0100\n"
 "Last-Translator: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language-Team: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language: de\n"
@@ -58,7 +58,7 @@ msgstr "Zeige die Teilen-Schaltflächen vor oder nach dem Artikel."
 
 #: shariff-wp.php:130
 msgid "Horizontal"
-msgstr "Horizental"
+msgstr "Horizontal"
 
 #: shariff-wp.php:133
 msgid "Vertical"
