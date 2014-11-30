@@ -26,7 +26,7 @@ Select which color you want, set the button location, select the orientation fit
 
 1. Upload the `shariff-wp` directory to `/wp-content/plugins/`
 2. Activate the plugin through th ‚Plugins‘ menu in WordPress
-3. Modify the settings as you want through Settings -> General
+3. Modify the settings as you want through Settings -> Shariff
 
 == Screenshots ==
 
