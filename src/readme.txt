@@ -36,5 +36,8 @@ Select which color you want, set the button location, select the orientation fit
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixes a PHP warning
+
 = 1.0 =
 * Initial release

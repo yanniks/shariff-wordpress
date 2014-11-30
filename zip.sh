@@ -1,4 +1,4 @@
-version=1.0.0
+version=1.0.1
 rm -rf shariff-wp
 mkdir -p shariff-wp
 cp -R src/ shariff-wp
