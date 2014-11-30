@@ -11,3 +11,7 @@ From the original Shariff GitHub project:
 > Shariff `(/ˈʃɛɹɪf/)` is an open-source, low-maintenance, high-privacy solution maintained by German computer magazine c't and heise online.
 
 To get all dependencies, run `./init-sub.sh` after getting the code. To create a WordPress plugin zip, run `./zip.sh` after that.
+
+### How do I get it?
+
+Download it through your WordPress installation / [wordpress.org](https://wordpress.org/plugins/shariff-sharing/) or get the current .zip over [here](https://github.com/yanniks/shariff-wordpress/releases).
