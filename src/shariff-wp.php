@@ -134,12 +134,7 @@ function setting_orientation_callback() {
 		</select>';
 }
 function setting_ttl_callback() {
-	if (empty(get_option("shariff_ttl"))) {
-		$value = "30";
-	} else {
-		$value = get_option("shariff_ttl");
-	}
-	echo '<input type="number" name="shariff_ttl" value="'.$value.'">';
+	echo '<input type="number" name="shariff_ttl" value="'.get_option("shariff_ttl","30").'">';
 }
 function setting_color_callback() {
 	echo '<select name="shariff_color">
