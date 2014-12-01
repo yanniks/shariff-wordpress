@@ -87,7 +87,7 @@ function init_settings() {
 	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_fb','Facebook','setting_fb_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','shariff','shariff_platforms');
-	add_settings_field('shariff_linkedin','LinkedIn','setting_linkedin_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_linkedin','LinkedIn ('.__('Experimental','shariff').')','setting_linkedin_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_email','E-Mail','setting_email_callback','shariff','shariff_platforms');
 	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
