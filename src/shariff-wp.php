@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.3
+ * Version: 1.0.3-linkedin
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -36,6 +36,13 @@ function shariffsharing($content) {
 			$serv = $serv."t";
 		}
 		$services = $services.'"twitter"';
+	}
+	if (get_option('shariff_linkedin',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+			$serv = $serv."l";
+		}
+		$services = $services.'"linkedin"';
 	}
 	if (get_option('shariff_whatsapp',false) == true) {
 		if ($services != "[") {
@@ -80,6 +87,7 @@ function init_settings() {
 	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_fb','Facebook','setting_fb_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_linkedin','LinkedIn','setting_linkedin_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_email','E-Mail','setting_email_callback','shariff','shariff_platforms');
 	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
@@ -91,6 +99,7 @@ function init_settings() {
 	register_setting('shariff','shariff_gplus');
 	register_setting('shariff','shariff_fb');
 	register_setting('shariff','shariff_twitter');
+	register_setting('shariff','shariff_linkedin');
 	register_setting('shariff','shariff_whatsapp');
 	register_setting('shariff','shariff_email');
 	register_setting('shariff','shariff_info');
@@ -120,6 +129,9 @@ function setting_fb_callback() {
 }
 function setting_twitter_callback() {
  	checkbox_setting('shariff_twitter','Twitter',true);
+}
+function setting_linkedin_callback() {
+ 	checkbox_setting('shariff_linkedin','LinkedIn',false);
 }
 function setting_whatsapp_callback() {
  	checkbox_setting('shariff_whatsapp','WhatsApp',false);
