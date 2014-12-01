@@ -18,6 +18,7 @@ function loadshariff() {
 	 echo '<link href="'.plugins_url( 'dep/shariff.min.css', __FILE__ ).'" rel="stylesheet">'."\n";
 }
 function shariffsharing($content) {
+	global $post;
 	$services = "[";
 	if (get_option('shariff_gplus',true) == true) {
 		$services = $services.'"googleplus"';
@@ -58,7 +59,7 @@ function shariffsharing($content) {
 	if (get_option('shariff_beforeafter','before') != 'before') {
 		$content2 = $content;
 	}
-	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false))) {
+	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
 		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"30").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
@@ -173,6 +174,41 @@ function shariff_options_page() {
 function shariffconfigmenu() {
 	add_options_page('shariff', 'Shariff', 'manage_options', 'shariff', 'shariff_options_page');
 }
+
+function select_init(){
+	$options = array("post","page");
+	foreach($options as $option) {
+		add_meta_box("useshariff", __( 'Shariff settings', 'shariff'), "shariff_box_callback", $option);
+	}
+}
+function shariff_box_callback(){
+  global $post;
+
+  echo '<label for="shariff_enabled">'.__("Deactivate Shariff?").'&nbsp; </label>';
+  $field_id_value = get_post_meta($post->ID, 'shariff_enabled', true);
+  if($field_id_value) $field_id_checked = 'checked';
+  echo '<input type="checkbox" name="shariff_enabled" '.$field_id_checked.' />';
+}
+add_action('save_post', 'save_details');
+
+function save_details(){
+	global $post;
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+	} else {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return $post->ID;
+	}
+	update_post_meta($post->ID, "shariff_enabled", $_POST["shariff_enabled"]);
+}
+add_action("admin_init", "select_init");
+add_action( 'save_post', 'shariff_save_checkbox' );
 add_action('admin_menu','shariffconfigmenu');
 add_action('admin_init','init_settings');
 add_action('init','init_locale');
