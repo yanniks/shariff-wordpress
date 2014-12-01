@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shariff\n"
-"POT-Creation-Date: 2014-11-30 21:39+0100\n"
-"PO-Revision-Date: 2014-11-30 21:40+0100\n"
+"POT-Creation-Date: 2014-12-01 16:56+0100\n"
+"PO-Revision-Date: 2014-12-01 16:57+0100\n"
 "Last-Translator: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language-Team: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language: de\n"
@@ -16,66 +16,74 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: shariff-wp.php:62
+#: shariff-wp.php:63
 msgid "en"
 msgstr "de"
 
-#: shariff-wp.php:72
+#: shariff-wp.php:79
 msgid "Shariff platforms"
 msgstr "Shariff-Plattformen"
 
-#: shariff-wp.php:78
+#: shariff-wp.php:85
 msgid "Other Shariff settings"
 msgstr "Andere Shariff-Einstellungen"
 
-#: shariff-wp.php:79
+#: shariff-wp.php:86
 msgid "Privacy information"
 msgstr "Datenschutz-Informationen"
 
-#: shariff-wp.php:80
+#: shariff-wp.php:87
 msgid "Color"
 msgstr "Farbe"
 
-#: shariff-wp.php:81
+#: shariff-wp.php:88
 msgid "Orientation"
 msgstr "Orientierung"
 
-#: shariff-wp.php:82
+#: shariff-wp.php:89
 msgid "Button location"
 msgstr "Schaltflächen-Position"
 
-#: shariff-wp.php:99
+#: shariff-wp.php:106
 msgid "Before"
 msgstr "Vor"
 
-#: shariff-wp.php:102
+#: shariff-wp.php:109
 msgid "After"
 msgstr "Nach"
 
-#: shariff-wp.php:103
+#: shariff-wp.php:110
 msgid "Show the sharing buttons before or after the article."
 msgstr "Zeige die Teilen-Schaltflächen vor oder nach dem Artikel."
 
-#: shariff-wp.php:130
+#: shariff-wp.php:137
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: shariff-wp.php:133
+#: shariff-wp.php:140
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: shariff-wp.php:143
+#: shariff-wp.php:150
 msgid "Colored"
 msgstr "Farbig"
 
-#: shariff-wp.php:146
+#: shariff-wp.php:153
 msgid "Grey"
 msgstr "Grau"
 
-#: shariff-wp.php:149
+#: shariff-wp.php:156
 msgid "White"
 msgstr "Weiß"
 
-#: shariff-wp.php:158
+#: shariff-wp.php:165
 msgid "Shariff configuration"
 msgstr "Shariff-Konfiguration"
+
+#: shariff-wp.php:181
+msgid "Shariff settings"
+msgstr "Shariff-Einstellungen"
+
+#: shariff-wp.php:187
+msgid "Deactivate Shariff?"
+msgstr "Shariff deaktivieren?"
