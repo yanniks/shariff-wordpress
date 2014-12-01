@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.3-linkedin
+ * Version: 1.0.4
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -67,7 +67,7 @@ function shariffsharing($content) {
 		$content2 = $content;
 	}
 	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"30").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
@@ -153,7 +153,7 @@ function setting_orientation_callback() {
 		</select>';
 }
 function setting_ttl_callback() {
-	echo '<input type="number" name="shariff_ttl" value="'.get_option("shariff_ttl","30").'">';
+	echo '<input type="number" name="shariff_ttl" value="'.get_option("shariff_ttl","60").'">';
 }
 function setting_color_callback() {
 	echo '<select name="shariff_color">
