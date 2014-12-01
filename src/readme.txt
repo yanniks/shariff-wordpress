@@ -3,7 +3,7 @@ Contributors: yanniks
 Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, heise
 Requires at least: 3.0
 Tested up to: 4.0.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -38,9 +38,15 @@ Select which color you want, set the button location, select the orientation fit
 
 = How do I hide Shariff on a page? =
 
-Just include `hideshariff` in the article. The word will be removed automatically and Shariff will not be shown. If you want to write hidesharrif in an article without removing Shariff, just write `/hideshariff`.
+**Method A:** Edit the article and check `Deactivate Shariff?`.
+
+**Method B:** Include `hideshariff` in the article. The word will be removed automatically and Shariff will not be shown. If you want to write hidesharrif in an article without removing Shariff, just write `/hideshariff`.
 
 == Changelog ==
+
+= 1.0.3 =
+* Include latest upstream changes
+* Checkbox to hide Shariff when editing articles or pages
 
 = 1.0.2 =
 * Own settings page
