@@ -18,6 +18,9 @@ class Application
 		if (strpos($_GET["service"],"f") !== false) {
 			$services[] = "Facebook";
 		}
+		if (strpos($_GET["service"],"l") !== false) {
+			$services[] = "LinkedIn";
+		}
 		/*if (strpos($_GET["services"]) !== false) {
 			$services = 
 		}*/
