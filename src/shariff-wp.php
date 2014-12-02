@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -44,6 +44,18 @@ function shariffsharing($content) {
 		}
 		$services = $services.'"linkedin"';
 	}
+	if (get_option('shariff_pinterest',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+		}
+		$services = $services.'"pinterest"';
+	}
+	if (get_option('shariff_xing',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+		}
+		$services = $services.'"xing"';
+	}
 	if (get_option('shariff_whatsapp',false) == true) {
 		if ($services != "[") {
 			$services = $services.",";
@@ -66,8 +78,25 @@ function shariffsharing($content) {
 	if (get_option('shariff_beforeafter','before') != 'before') {
 		$content2 = $content;
 	}
+	if (get_option('shariff_image','leer') != 'leer') {
+		if (strpos($content,'<img') !== false) {
+			$imgurls = explode("\"",explode(">",strstr($content,"<img"))[0]);
+			$int = 0;
+			foreach($imgurls as $imgurl) {
+				$int = $int + 1;
+				if (strpos($imgurl,"src") !== false) {
+					if (!(strpos($imgurls[$int],"http") !== false)) {
+						$image = get_site_url()."/";
+					}
+					$image .= $imgurls[$int];
+				}
+			}
+		} else {
+			$image = get_option('shariff_image','');
+		}
+	}
 	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
@@ -88,10 +117,13 @@ function init_settings() {
 	add_settings_field('shariff_fb','Facebook','setting_fb_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_linkedin','LinkedIn ('.__('Experimental','shariff').')','setting_linkedin_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_pinterest','Pinterest ('.__('Experimental','shariff').')','setting_pinterest_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_xing','XING ('.__('Experimental','shariff').')','setting_xing_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_email','E-Mail','setting_email_callback','shariff','shariff_platforms');
 	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
 	add_settings_field('shariff_info',__('Privacy information',"shariff"),'setting_info_callback','shariff','shariff_other');
+	add_settings_field('shariff_image',__('Default Image URL',"shariff"),'setting_imageurl','shariff','shariff_other');
 	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','shariff','shariff_other');
 	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','shariff','shariff_other');
 	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','shariff','shariff_other');
@@ -100,6 +132,9 @@ function init_settings() {
 	register_setting('shariff','shariff_fb');
 	register_setting('shariff','shariff_twitter');
 	register_setting('shariff','shariff_linkedin');
+	register_setting('shariff','shariff_pinterest');
+	register_setting('shariff','shariff_xing');
+	register_setting('shariff','shariff_image');
 	register_setting('shariff','shariff_whatsapp');
 	register_setting('shariff','shariff_email');
 	register_setting('shariff','shariff_info');
@@ -127,11 +162,20 @@ function setting_gplus_callback() {
 function setting_fb_callback() {
  	checkbox_setting('shariff_fb','Facebook',true);
 }
+function setting_xing_callback() {
+ 	checkbox_setting('shariff_xing','XING',false);
+}
 function setting_twitter_callback() {
  	checkbox_setting('shariff_twitter','Twitter',true);
 }
 function setting_linkedin_callback() {
  	checkbox_setting('shariff_linkedin','LinkedIn',false);
+}
+function setting_pinterest_callback() {
+ 	checkbox_setting('shariff_pinterest','Pinterest',false);
+}
+function setting_imageurl() {
+	echo '<input type="text" name="shariff_image" value="'.get_option('shariff_image','').'"> '.__('Used for services such as Pinterest','shariff');
 }
 function setting_whatsapp_callback() {
  	checkbox_setting('shariff_whatsapp','WhatsApp',false);
@@ -220,7 +264,7 @@ function save_details(){
 	update_post_meta($post->ID, "shariff_enabled", $_POST["shariff_enabled"]);
 }
 add_action("admin_init", "select_init");
-add_action( 'save_post', 'shariff_save_checkbox' );
+add_action('save_post', 'shariff_save_checkbox' );
 add_action('admin_menu','shariffconfigmenu');
 add_action('admin_init','init_settings');
 add_action('init','init_locale');

@@ -44,6 +44,10 @@ Select which color you want, set the button location, select the orientation fit
 
 == Changelog ==
 
+= 1.0.5 =
+* Add Pinterest and XING (without count)
+* Fix mail
+
 = 1.0.4 =
 * Add experimental LinkedIn support
 * Set default TTL to 60

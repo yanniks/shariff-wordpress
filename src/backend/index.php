@@ -21,6 +21,9 @@ class Application
 		if (strpos($_GET["service"],"l") !== false) {
 			$services[] = "LinkedIn";
 		}
+		if (strpos($_GET["service"],"p") !== false) {
+			$services[] = "Pinterest";
+		}
 		$arrayconfig = Array ( "cache" => Array ( "ttl" => $_GET["ttl"]),"domain" => $_SERVER["HTTP_HOST"],"services" => $services);
         $shariff = new Backend($arrayconfig);
         echo json_encode($shariff->get($_GET["url"]));

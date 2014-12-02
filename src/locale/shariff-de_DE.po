@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shariff\n"
-"POT-Creation-Date: 2014-12-01 20:39+0100\n"
-"PO-Revision-Date: 2014-12-01 20:39+0100\n"
+"POT-Creation-Date: 2014-12-02 16:50+0100\n"
+"PO-Revision-Date: 2014-12-02 16:50+0100\n"
 "Last-Translator: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language-Team: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language: de\n"
@@ -16,78 +16,86 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: shariff-wp.php:70
+#: shariff-wp.php:99
 msgid "en"
 msgstr "de"
 
-#: shariff-wp.php:86
+#: shariff-wp.php:115
 msgid "Shariff platforms"
 msgstr "Shariff-Plattformen"
 
-#: shariff-wp.php:90
+#: shariff-wp.php:119 shariff-wp.php:120 shariff-wp.php:121
 msgid "Experimental"
 msgstr "Experimentell"
 
-#: shariff-wp.php:93
+#: shariff-wp.php:124
 msgid "Other Shariff settings"
 msgstr "Andere Shariff-Einstellungen"
 
-#: shariff-wp.php:94
+#: shariff-wp.php:125
 msgid "Privacy information"
 msgstr "Datenschutz-Informationen"
 
-#: shariff-wp.php:95
+#: shariff-wp.php:126
+msgid "Default Image URL"
+msgstr "Standard Bild-URL"
+
+#: shariff-wp.php:127
 msgid "Color"
 msgstr "Farbe"
 
-#: shariff-wp.php:96
+#: shariff-wp.php:128
 msgid "Orientation"
 msgstr "Orientierung"
 
-#: shariff-wp.php:97
+#: shariff-wp.php:129
 msgid "Button location"
 msgstr "Schaltflächen-Position"
 
-#: shariff-wp.php:115
+#: shariff-wp.php:150
 msgid "Before"
 msgstr "Vor"
 
-#: shariff-wp.php:118
+#: shariff-wp.php:153
 msgid "After"
 msgstr "Nach"
 
-#: shariff-wp.php:119
+#: shariff-wp.php:154
 msgid "Show the sharing buttons before or after the article."
 msgstr "Zeige die Teilen-Schaltflächen vor oder nach dem Artikel."
 
-#: shariff-wp.php:149
+#: shariff-wp.php:178
+msgid "Used for services such as Pinterest"
+msgstr "Wird für Dienste wie Pinterest genutzt"
+
+#: shariff-wp.php:193
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: shariff-wp.php:152
+#: shariff-wp.php:196
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: shariff-wp.php:162
+#: shariff-wp.php:206
 msgid "Colored"
 msgstr "Farbig"
 
-#: shariff-wp.php:165
+#: shariff-wp.php:209
 msgid "Grey"
 msgstr "Grau"
 
-#: shariff-wp.php:168
+#: shariff-wp.php:212
 msgid "White"
 msgstr "Weiß"
 
-#: shariff-wp.php:177
+#: shariff-wp.php:221
 msgid "Shariff configuration"
 msgstr "Shariff-Konfiguration"
 
-#: shariff-wp.php:193
+#: shariff-wp.php:237
 msgid "Shariff settings"
 msgstr "Shariff-Einstellungen"
 
-#: shariff-wp.php:199
+#: shariff-wp.php:243
 msgid "Deactivate Shariff?"
 msgstr "Shariff deaktivieren?"
