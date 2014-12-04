@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -80,7 +80,8 @@ function shariffsharing($content) {
 	}
 	if (get_option('shariff_image','leer') != 'leer') {
 		if (strpos($content,'<img') !== false) {
-			$imgurls = explode("\"",explode(">",strstr($content,"<img"))[0]);
+			$tmp=explode(">",strstr($content,"<img"));
+			$imgurls = explode("\"",$tmp[0]);
 			$int = 0;
 			foreach($imgurls as $imgurl) {
 				$int = $int + 1;
@@ -264,7 +265,6 @@ function save_details(){
 	update_post_meta($post->ID, "shariff_enabled", $_POST["shariff_enabled"]);
 }
 add_action("admin_init", "select_init");
-add_action('save_post', 'shariff_save_checkbox' );
 add_action('admin_menu','shariffconfigmenu');
 add_action('admin_init','init_settings');
 add_action('init','init_locale');

@@ -44,6 +44,9 @@ Select which color you want, set the button location, select the orientation fit
 
 == Changelog ==
 
+= 1.0.6 =
+* Bug fixes
+
 = 1.0.5 =
 * Add Pinterest and XING (without count)
 * Fix mail
