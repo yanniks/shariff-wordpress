@@ -93,11 +93,11 @@ function shariffsharing($content) {
 				}
 			}
 		} else {
-			$image = get_option('shariff_image','');
+			$image = filter_var(get_option('shariff_image',''), FILTER_SANITIZE_STRING);
 		}
 	}
 	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.get_option('shariff_temp',"/tmp").'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.filter_var(get_option('shariff_temp',"/tmp"),FILTER_SANITIZE_STRING).'" data-ttl="'.filter_var(get_option('shariff_ttl',"60"),FILTER_SANITIZE_STRING).'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
@@ -178,7 +178,7 @@ function setting_pinterest_callback() {
  	checkbox_setting('shariff_pinterest','Pinterest',false);
 }
 function setting_imageurl() {
-	echo '<input type="text" name="shariff_image" value="'.get_option('shariff_image','').'"> '.__('Used for services such as Pinterest','shariff');
+	echo '<input type="text" name="shariff_image" value="'.filter_var(get_option('shariff_image',''), FILTER_SANITIZE_STRING).'"> '.__('Used for services such as Pinterest','shariff');
 }
 function setting_whatsapp_callback() {
  	checkbox_setting('shariff_whatsapp','WhatsApp',false);
@@ -200,10 +200,10 @@ function setting_orientation_callback() {
 		</select>';
 }
 function setting_ttl_callback() {
-	echo '<input type="number" name="shariff_ttl" value="'.get_option("shariff_ttl","60").'">';
+	echo '<input type="number" name="shariff_ttl" value="'.filter_var(get_option("shariff_ttl","60"),FILTER_SANITIZE_STRING).'">';
 }
 function setting_temp_callback() {
-	echo '<input type="text" name="shariff_temp" value="'.get_option("shariff_temp","/tmp").'">';
+	echo '<input type="text" name="shariff_temp" value="'.filter_var(get_option("shariff_temp","/tmp"),FILTER_SANITIZE_STRING).'">';
 }
 function setting_color_callback() {
 	echo '<select name="shariff_color">

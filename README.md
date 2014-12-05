@@ -1,6 +1,6 @@
 # Shariff for WordPress
 
-This is the Shariff sharing plugin by Heise Zeitschriften Verlag / c't modified for WordPress.
+This is the Shariff for WordPress plugin based on c't Shariff.
 
 From the original Shariff GitHub project:
 

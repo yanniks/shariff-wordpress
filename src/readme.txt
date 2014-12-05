@@ -1,9 +1,9 @@
 === Shariff for Wordpress ===
 Contributors: yanniks
-Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise
+Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise, pinterest
 Requires at least: 3.0
 Tested up to: 4.0.1
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -11,7 +11,9 @@ Shariff enables website users to share their favorite content without compromisi
 
 == Description ==
 
-This is the Shariff sharing plugin by Heise Zeitschriften Verlag / c't updated for WordPress.
+This is the Shariff for WordPress plugin based on c't Shariff.
+
+For more information, check out the original [GitHub project](https://github.com/heiseonline/shariff) and the [c’t information page](http://ct.de/shariff).
 
 > Shariff enables website users to share their favorite content without compromising their privacy.
 
@@ -42,7 +44,12 @@ Select which color you want, set the button location, select the orientation fit
 
 **Method B:** Include `hideshariff` in the article. The word will be removed automatically and Shariff will not be shown. If you want to write hidesharrif in an article without removing Shariff, just write `/hideshariff`.
 
+= Shariff doesn't show any numbers =
+Your user probably doesn't have the right to write to the default temp folder `/tmp`. Then create a new folder and use it as temp folder in the Shariff settings, make sure that the rights are set correct.
 == Changelog ==
+
+= 1.0.8 =
+* security fix
 
 = 1.0.7 =
 * upstream changes
