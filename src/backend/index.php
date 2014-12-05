@@ -24,7 +24,11 @@ class Application
 		if (strpos($_GET["service"],"p") !== false) {
 			$services[] = "Pinterest";
 		}
-		$arrayconfig = Array ( "cache" => Array ( "ttl" => $_GET["ttl"]),"domain" => $_SERVER["HTTP_HOST"],"services" => $services);
+		if ($_GET["temp"] != "/tmp" && !empty($_GET["temp"])) {
+			$arrayconfig = Array ( "cache" => Array ( "ttl" => $_GET["ttl"], "cacheDir" => $_GET["temp"] ),"domain" => $_SERVER["HTTP_HOST"],"services" => $services);
+		} else {
+			$arrayconfig = Array ( "cache" => Array ( "ttl" => $_GET["ttl"]),"domain" => $_SERVER["HTTP_HOST"],"services" => $services);
+		}
         $shariff = new Backend($arrayconfig);
         echo json_encode($shariff->get($_GET["url"]));
     }

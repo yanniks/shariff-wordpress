@@ -3,7 +3,7 @@ Contributors: yanniks
 Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise
 Requires at least: 3.0
 Tested up to: 4.0.1
-Stable tag: 1.0.4
+Stable tag: 1.0.7
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -43,6 +43,10 @@ Select which color you want, set the button location, select the orientation fit
 **Method B:** Include `hideshariff` in the article. The word will be removed automatically and Shariff will not be shown. If you want to write hidesharrif in an article without removing Shariff, just write `/hideshariff`.
 
 == Changelog ==
+
+= 1.0.7 =
+* upstream changes
+* possibility to manually change temp dir
 
 = 1.0.6 =
 * Bug fixes

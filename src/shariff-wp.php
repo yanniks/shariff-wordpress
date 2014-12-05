@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -97,7 +97,7 @@ function shariffsharing($content) {
 		}
 	}
 	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.get_option('shariff_temp',"/tmp").'" data-ttl="'.get_option('shariff_ttl',"60").'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
@@ -129,6 +129,7 @@ function init_settings() {
 	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','shariff','shariff_other');
 	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','shariff','shariff_other');
 	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','shariff','shariff_other');
+	add_settings_field('shariff_temp',__('Temp directory',"shariff"),'setting_temp_callback','shariff','shariff_other');
 	register_setting('shariff','shariff_gplus');
 	register_setting('shariff','shariff_fb');
 	register_setting('shariff','shariff_twitter');
@@ -143,6 +144,7 @@ function init_settings() {
 	register_setting('shariff','shariff_orientation');
 	register_setting('shariff','shariff_beforeafter');
 	register_setting('shariff','shariff_ttl');
+	register_setting('shariff','shariff_temp');
 }
 function setting_before_callback() {
 	echo '<select name="shariff_beforeafter">
@@ -199,6 +201,9 @@ function setting_orientation_callback() {
 }
 function setting_ttl_callback() {
 	echo '<input type="number" name="shariff_ttl" value="'.get_option("shariff_ttl","60").'">';
+}
+function setting_temp_callback() {
+	echo '<input type="text" name="shariff_temp" value="'.get_option("shariff_temp","/tmp").'">';
 }
 function setting_color_callback() {
 	echo '<select name="shariff_color">
