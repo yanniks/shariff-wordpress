@@ -3,7 +3,7 @@
  * Plugin Name: Shariff for Wordpress
  * Plugin URI: http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html
  * Description: Shariff enables website users to share their favorite content without compromising their privacy.
- * Version: 1.0.7
+ * Version: 1.0.9
  * Author: Heise Zeitschriften Verlag / Yannik Ehlert
  * Author URI: http://www.heise.de
  * Text Domain: shariff
@@ -96,8 +96,10 @@ function shariffsharing($content) {
 			$image = filter_var(get_option('shariff_image',''), FILTER_SANITIZE_STRING);
 		}
 	}
-	if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-		$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.filter_var(get_option('shariff_temp',"/tmp"),FILTER_SANITIZE_STRING).'" data-ttl="'.filter_var(get_option('shariff_ttl',"60"),FILTER_SANITIZE_STRING).'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+	if(!get_option('shariff_hideonoverview',false) || is_single()) {
+		if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
+			$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.filter_var(get_option('shariff_temp',"/tmp"),FILTER_SANITIZE_STRING).'" data-ttl="'.filter_var(get_option('shariff_ttl',"60"),FILTER_SANITIZE_STRING).'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+		}
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
@@ -128,6 +130,7 @@ function init_settings() {
 	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','shariff','shariff_other');
 	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','shariff','shariff_other');
 	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','shariff','shariff_other');
+	add_settings_field('shariff_hideonoverview',__('Hide on overview page',"shariff"),'setting_overview_callback','shariff','shariff_other');
 	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','shariff','shariff_other');
 	add_settings_field('shariff_temp',__('Temp directory',"shariff"),'setting_temp_callback','shariff','shariff_other');
 	register_setting('shariff','shariff_gplus');
@@ -141,6 +144,7 @@ function init_settings() {
 	register_setting('shariff','shariff_email');
 	register_setting('shariff','shariff_info');
 	register_setting('shariff','shariff_color');
+	register_setting('shariff','shariff_hideonoverview');
 	register_setting('shariff','shariff_orientation');
 	register_setting('shariff','shariff_beforeafter');
 	register_setting('shariff','shariff_ttl');
@@ -176,6 +180,9 @@ function setting_linkedin_callback() {
 }
 function setting_pinterest_callback() {
  	checkbox_setting('shariff_pinterest','Pinterest',false);
+}
+function setting_overview_callback() {
+ 	checkbox_setting('shariff_hideonoverview','Hide on overview',false);
 }
 function setting_imageurl() {
 	echo '<input type="text" name="shariff_image" value="'.filter_var(get_option('shariff_image',''), FILTER_SANITIZE_STRING).'"> '.__('Used for services such as Pinterest','shariff');
@@ -225,6 +232,13 @@ function shariff_options_page() {
 	?>
 	    <div class="wrap">
 	        <h2><?php echo _e("Shariff configuration","shariff")?></h2>
+			<?php
+				if (version_compare(phpversion(), '5.4.0') >= 0) {
+					echo '<br><font size="6" color="green">&#10004;</font> '.__("You're using PHP 5.4 or greater.","shariff").'<br>';
+				} else {
+					echo '<br><font size="6" color="red">&#x2717;</font> '.__("You're using an outdated PHP version which will cause problems. Please update PHP to 5.4 or greater to have full support.").'<br>';
+				}
+			?>
 	        <form action="options.php" method="POST">
 	            <?php settings_fields( 'shariff' ); ?>
 	            <?php do_settings_sections( 'shariff' ); ?>

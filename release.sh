@@ -1,4 +1,4 @@
-version=1.0.8
+version=1.0.9
 if [ "$1" = "zip" ]; then
 	rm -rf shariff-wp
 	mkdir -p shariff-wp
@@ -7,6 +7,7 @@ if [ "$1" = "zip" ]; then
 	cp shariff/build/shariff.min.* shariff-wp/dep
 	cp -R backend-php/build/src shariff-wp/backend/src
 	cp -R backend-php/build/vendor shariff-wp/backend/vendor
+	cp -R fontawesome/fonts shariff-wp/fafonts
 	# remove backend/vendor/guzzlehttp/guzzle/tests/perf.php so WordPress.org doesn't complain
 	rm -f shariff-wp/backend/vendor/guzzlehttp/guzzle/tests/perf.php
 	zip -r shariff-wp-$version.zip shariff-wp
@@ -20,6 +21,7 @@ elif [ "$1" = "svn" ]; then
 	cp shariff/build/shariff.min.* shariff-svn/trunk/dep
 	cp -R backend-php/build/src shariff-svn/trunk/backend/src
 	cp -R backend-php/build/vendor shariff-svn/trunk/backend/vendor
+	cp -R fontawesome/fonts shariff-svn/fafonts
 	# remove backend/vendor/guzzlehttp/guzzle/tests/perf.php so WordPress.org doesn't complain
 	rm -f shariff-svn/trunk/backend/vendor/guzzlehttp/guzzle/tests/perf.php
 else
