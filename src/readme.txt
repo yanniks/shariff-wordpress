@@ -3,7 +3,7 @@ Contributors: yanniks
 Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise, pinterest
 Requires at least: 3.0
 Tested up to: 4.0.1
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -47,6 +47,9 @@ Select which color you want, set the button location, select the orientation fit
 = Shariff doesn't show any numbers =
 Your user probably doesn't have the right to write to the default temp folder `/tmp`. Then create a new folder and use it as temp folder in the Shariff settings, make sure that the rights are set correct.
 == Changelog ==
+
+= 1.0.10 =
+* WhatsApp fixes
 
 = 1.0.9 =
 * bug fixes
