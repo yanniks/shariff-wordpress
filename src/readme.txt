@@ -2,7 +2,7 @@
 Contributors: yanniks
 Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise, pinterest
 Requires at least: 3.0
-Tested up to: 4.0.1
+Tested up to: 4.1
 Stable tag: 1.0.10
 License: MIT
 License URI: http://opensource.org/licenses/MIT
