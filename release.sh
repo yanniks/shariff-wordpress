@@ -1,4 +1,4 @@
-version=1.0.10
+version=1.0.11
 if [ "$1" = "zip" ]; then
 	rm -rf shariff-wp
 	mkdir -p shariff-wp
