@@ -24,6 +24,15 @@ class Application
 		if (strpos($_GET["service"],"p") !== false) {
 			$services[] = "Pinterest";
 		}
+		if (strpos($_GET["service"],"x") !== false) {
+			$services[] = "Xing";
+		}
+		if (strpos($_GET["service"],"r") !== false) {
+			$services[] = "Reddit";
+		}
+		if (strpos($_GET["service"],"s") !== false) {
+			$services[] = "StumbleUpon";
+		}
 		if ($_GET["temp"] != "/tmp" && !empty($_GET["temp"])) {
 			$arrayconfig = Array ( "cache" => Array ( "ttl" => $_GET["ttl"], "cacheDir" => $_GET["temp"] ),"domain" => $_SERVER["HTTP_HOST"],"services" => $services);
 		} else {

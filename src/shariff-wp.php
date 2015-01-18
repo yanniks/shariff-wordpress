@@ -15,7 +15,7 @@ function init_locale() {
 	load_plugin_textdomain('shariff', false, dirname(plugin_basename(__FILE__)).'/locale' );
 }
 function loadshariff() {
-	 echo '<link href="'.plugins_url( 'dep/shariff.min.css', __FILE__ ).'" rel="stylesheet">'."\n";
+	 echo '<link href="'.plugins_url( 'dep/shariff.complete.css', __FILE__ ).'" rel="stylesheet">'."\n";
 }
 function shariffsharing($content) {
 	global $post;
@@ -47,14 +47,27 @@ function shariffsharing($content) {
 	if (get_option('shariff_pinterest',false) == true) {
 		if ($services != "[") {
 			$services = $services.",";
+			$serv = $serv."p";
 		}
 		$services = $services.'"pinterest"';
 	}
 	if (get_option('shariff_xing',false) == true) {
 		if ($services != "[") {
 			$services = $services.",";
+			$serv = $serv."x";
 		}
 		$services = $services.'"xing"';
+	}
+	if (get_option('shariff_reddit',true) == true) {
+		$services = $services.',"reddit"';
+		$serv = $serv."r";
+	}
+	if (get_option('shariff_stumbleupon',false) == true) {
+		if ($services != "[") {
+			$services = $services.",";
+			$serv = $serv."s";
+		}
+		$services = $services.'"stumbleupon"';
 	}
 	if (get_option('shariff_whatsapp',false) == true) {
 		if ($services != "[") {
@@ -119,9 +132,11 @@ function init_settings() {
 	add_settings_field('shariff_gplus','Google+','setting_gplus_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_fb','Facebook','setting_fb_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_twitter','Twitter','setting_twitter_callback','shariff','shariff_platforms');
-	add_settings_field('shariff_linkedin','LinkedIn ('.__('Experimental','shariff').')','setting_linkedin_callback','shariff','shariff_platforms');
-	add_settings_field('shariff_pinterest','Pinterest ('.__('Experimental','shariff').')','setting_pinterest_callback','shariff','shariff_platforms');
-	add_settings_field('shariff_xing','XING ('.__('Experimental','shariff').')','setting_xing_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_linkedin','LinkedIn','setting_linkedin_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_pinterest','Pinterest','setting_pinterest_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_xing','XING','setting_xing_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_stumbleupon','StumbleUpon','setting_stumbleupon_callback','shariff','shariff_platforms');
+	add_settings_field('shariff_reddit','Reddit','setting_reddit_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_whatsapp','WhatsApp','setting_whatsapp_callback','shariff','shariff_platforms');
 	add_settings_field('shariff_email','E-Mail','setting_email_callback','shariff','shariff_platforms');
 	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
@@ -139,6 +154,8 @@ function init_settings() {
 	register_setting('shariff','shariff_linkedin');
 	register_setting('shariff','shariff_pinterest');
 	register_setting('shariff','shariff_xing');
+	register_setting('shariff','shariff_reddit');
+	register_setting('shariff','shariff_stumbleupon');
 	register_setting('shariff','shariff_image');
 	register_setting('shariff','shariff_whatsapp');
 	register_setting('shariff','shariff_email');
@@ -172,6 +189,9 @@ function setting_fb_callback() {
 function setting_xing_callback() {
  	checkbox_setting('shariff_xing','XING',false);
 }
+function setting_stumbleupon_callback() {
+ 	checkbox_setting('shariff_stumbleupon','StumbleUpon',false);
+}
 function setting_twitter_callback() {
  	checkbox_setting('shariff_twitter','Twitter',true);
 }
@@ -180,6 +200,9 @@ function setting_linkedin_callback() {
 }
 function setting_pinterest_callback() {
  	checkbox_setting('shariff_pinterest','Pinterest',false);
+}
+function setting_reddit_callback() {
+ 	checkbox_setting('shariff_reddit','Reddit',false);
 }
 function setting_overview_callback() {
  	checkbox_setting('shariff_hideonoverview','Hide on overview',false);
@@ -226,7 +249,7 @@ function setting_color_callback() {
 		</select>';
 }
 function loadjs() {
-	 echo '<script src="'.plugins_url( 'dep/shariff.min.js', __FILE__ ).'"></script>'."\n";
+	 echo '<script src="'.plugins_url( 'dep/shariff.complete.js', __FILE__ ).'"></script>'."\n";
 }
 function shariff_options_page() {
 	?>
