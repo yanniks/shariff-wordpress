@@ -3,7 +3,7 @@ Contributors: yanniks
 Tags: sharing, social, networks, network, privacy, facebook, twitter, google, whatsapp, linkedin, heise, pinterest
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.0.11
+Stable tag: 1.1.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -21,7 +21,7 @@ For more information, check out the original [GitHub project](https://github.com
 
 > Shariff `(/ˈʃɛɹɪf/)` is an open-source, low-maintenance, high-privacy solution maintained by German computer magazine c't and heise online.
 
-Shariff supports sharing buttons for Facebook, Twitter, Google+, LinkedIn, WhatsApp and mail.
+Shariff supports sharing buttons for Facebook, Twitter, Google+, LinkedIn, Pinterest, Reddit, StumbleUpon, XING, WhatsApp and mail.
 Select which color you want, set the button location, select the orientation fitting most to your website and set the TTL just as you want.
 
 == Installation ==
@@ -47,6 +47,15 @@ Select which color you want, set the button location, select the orientation fit
 = Shariff doesn't show any numbers =
 Your user probably doesn't have the right to write to the default temp folder `/tmp`. Then create a new folder and use it as temp folder in the Shariff settings, make sure that the rights are set correct.
 == Changelog ==
+
+= 1.1 =
+* Round theme and french support frontend translation (thanks to 3UU)
+* Insert Shariff by using the `shariffhere` tag
+* Support for Reddit and StumbleUpon
+* Counts for all supported services
+* Bug fixes
+* Upstream changes
+* Some other stuff
 
 = 1.0.11 =
 * Spanish support

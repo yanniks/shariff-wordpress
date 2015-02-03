@@ -109,13 +109,16 @@ function shariffsharing($content) {
 			$image = filter_var(get_option('shariff_image',''), FILTER_SANITIZE_STRING);
 		}
 	}
-	if(!get_option('shariff_hideonoverview',false) || is_single()) {
+	if((!get_option('shariff_hideonoverview',false) || is_single()) && !strpos($content,"shariffhere") !== false) {
 		if (!((strpos($content,'hideshariff') !== false) && (strpos($content,'/hideshariff') == false)) && !(get_post_meta($post->ID, 'shariff_enabled', true))) {
-			$content2 .= '<div class="shariff" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.filter_var(get_option('shariff_temp',"/tmp"),FILTER_SANITIZE_STRING).'" data-ttl="'.filter_var(get_option('shariff_ttl',"60"),FILTER_SANITIZE_STRING).'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
+			$content2 .= generateshariff($serv,$services,$image);
 		}
 	}
 	if (get_option('shariff_beforeafter','before') != 'after') {
 		$content2 .= $content;
+	}
+	if (strpos($content,"shariffhere")) {
+		$content2 = str_replace("shariffhere",generateshariff($serv,$services,$image),$content2);
 	}
 	if ((strpos($content,'/hideshariff') !== false)) {
 		$content2 = str_replace("/hideshariff","hideshariff",$content2);
@@ -124,6 +127,12 @@ function shariffsharing($content) {
 	}
 	return $content2;
 	
+}
+function generateshariff($serv,$services,$image) {
+	if (get_option('shariff_twittervia',"") != "") {
+		$twittervia = ' data-twitter-via="'.filter_var(get_option('shariff_twittervia',""),FILTER_SANITIZE_STRING).'"';
+	}
+	return '<div class="shariff"'.$twittervia.' data-title="'.get_the_title().'" data-info-url="'.get_option('shariff_infourl',"http://ct.de/-2467514").'" data-backend-url="'.plugins_url( 'backend/index.php', __FILE__ ).'" data-temp="'.filter_var(get_option('shariff_temp',"/tmp"),FILTER_SANITIZE_STRING).'" data-ttl="'.filter_var(get_option('shariff_ttl',"60"),FILTER_SANITIZE_STRING).'" data-service="'.$serv.'" data-services=\''.$services.'\' data-image="'.$image.'" data-url="'.get_permalink().'" data-lang="'.__('en', 'shariff').'" data-theme="'.get_option('shariff_color',"colored").'" data-orientation="'.get_option('shariff_orientation',"horizontal").'"></div>';
 }
 function setting_plat_callback() {
 }
@@ -142,12 +151,14 @@ function init_settings() {
 	add_settings_section('shariff_other',__('Other Shariff settings',"shariff"),'setting_plat_callback','shariff');
 	add_settings_field('shariff_info',__('Privacy information',"shariff"),'setting_info_callback','shariff','shariff_other');
 	add_settings_field('shariff_image',__('Default Image URL',"shariff"),'setting_imageurl','shariff','shariff_other');
-	add_settings_field('shariff_color',__('Color',"shariff"),'setting_color_callback','shariff','shariff_other');
+	add_settings_field('shariff_color',__('Design',"shariff"),'setting_color_callback','shariff','shariff_other');
 	add_settings_field('shariff_orientation',__('Orientation',"shariff"),'setting_orientation_callback','shariff','shariff_other');
 	add_settings_field('shariff_beforeafter',__('Button location',"shariff"),'setting_before_callback','shariff','shariff_other');
 	add_settings_field('shariff_hideonoverview',__('Hide on overview page',"shariff"),'setting_overview_callback','shariff','shariff_other');
 	add_settings_field('shariff_ttl','TTL','setting_ttl_callback','shariff','shariff_other');
+	add_settings_field('shariff_twittervia','Twitter via Tag','setting_twittervia_callback','shariff','shariff_other');
 	add_settings_field('shariff_temp',__('Temp directory',"shariff"),'setting_temp_callback','shariff','shariff_other');
+	add_settings_field('shariff_infourl',__('Info URL',"shariff"),'setting_infourl_callback','shariff','shariff_other');
 	register_setting('shariff','shariff_gplus');
 	register_setting('shariff','shariff_fb');
 	register_setting('shariff','shariff_twitter');
@@ -165,7 +176,9 @@ function init_settings() {
 	register_setting('shariff','shariff_orientation');
 	register_setting('shariff','shariff_beforeafter');
 	register_setting('shariff','shariff_ttl');
+	register_setting('shariff','shariff_twittervia');
 	register_setting('shariff','shariff_temp');
+	register_setting('shariff','shariff_infourl');
 }
 function setting_before_callback() {
 	echo '<select name="shariff_beforeafter">
@@ -190,7 +203,7 @@ function setting_xing_callback() {
  	checkbox_setting('shariff_xing','XING',false);
 }
 function setting_stumbleupon_callback() {
- 	checkbox_setting('shariff_stumbleupon','StumbleUpon',false);
+ 	checkbox_setting('shariff_stumbleupon','XING',false);
 }
 function setting_twitter_callback() {
  	checkbox_setting('shariff_twitter','Twitter',true);
@@ -232,8 +245,14 @@ function setting_orientation_callback() {
 function setting_ttl_callback() {
 	echo '<input type="number" name="shariff_ttl" value="'.filter_var(get_option("shariff_ttl","60"),FILTER_SANITIZE_STRING).'">';
 }
+function setting_twittervia_callback() {
+	echo '<input type="text" name="shariff_twittervia" value="'.filter_var(get_option("shariff_twittervia",""),FILTER_SANITIZE_STRING).'">';
+}
 function setting_temp_callback() {
 	echo '<input type="text" name="shariff_temp" value="'.filter_var(get_option("shariff_temp","/tmp"),FILTER_SANITIZE_STRING).'">';
+}
+function setting_infourl_callback() {
+	echo '<input type="text" name="shariff_infourl" value="'.filter_var(get_option("shariff_infourl","http://ct.de/-2467514"),FILTER_SANITIZE_STRING).'">';
 }
 function setting_color_callback() {
 	echo '<select name="shariff_color">
@@ -246,6 +265,9 @@ function setting_color_callback() {
 			<option value="white" ';
 			if (get_option('shariff_color') == "white") { echo 'selected'; }
 			echo '>'.__("White","shariff").'</option>
+			<option value="round" ';
+			if (get_option('shariff_color') == "round") { echo 'selected'; }
+			echo '>'.__("Round","shariff").'</option>
 		</select>';
 }
 function loadjs() {

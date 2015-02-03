@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shariff\n"
-"POT-Creation-Date: 2014-12-16 20:37+0100\n"
-"PO-Revision-Date: 2014-12-28 09:58-0500\n"
+"POT-Creation-Date: 2015-02-03 16:07+0100\n"
+"PO-Revision-Date: 2015-02-03 16:07+0100\n"
 "Last-Translator: Yannik Ehlert <kontakt@yanniks.de>\n"
 "Language-Team: Yannik Ehlert <kontakt@yanniks.de>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,109 +14,118 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"Language: es\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: shariff-wp.php:101
+#: shariff-wp.php:135
 msgid "en"
 msgstr "es"
 
-#: shariff-wp.php:118
+#: shariff-wp.php:140
 msgid "Shariff platforms"
 msgstr "plataformas Shariff"
 
-#: shariff-wp.php:122 shariff-wp.php:123 shariff-wp.php:124
-msgid "Experimental"
-msgstr "Experimental"
-
-#: shariff-wp.php:127
+#: shariff-wp.php:151
 msgid "Other Shariff settings"
 msgstr "Otros ajustes Shariff"
 
-#: shariff-wp.php:128
+#: shariff-wp.php:152
 msgid "Privacy information"
 msgstr "Información de privacidad"
 
-#: shariff-wp.php:129
+#: shariff-wp.php:153
 msgid "Default Image URL"
 msgstr "Normal Imagen URL"
 
-#: shariff-wp.php:130
-msgid "Color"
-msgstr "Color"
+#: shariff-wp.php:154
+msgid "Design"
+msgstr "﻿Diseño"
 
-#: shariff-wp.php:131
+#: shariff-wp.php:155
 msgid "Orientation"
 msgstr "﻿Orientación"
 
-#: shariff-wp.php:132
+#: shariff-wp.php:156
 msgid "Button location"
 msgstr "Ubicación Button"
 
-#: shariff-wp.php:133
+#: shariff-wp.php:157
 msgid "Hide on overview page"
 msgstr "Ocultar en la página resumen"
 
-#: shariff-wp.php:135
+#: shariff-wp.php:160
 msgid "Temp directory"
 msgstr "Directorio temp"
 
-#: shariff-wp.php:157
+#: shariff-wp.php:161
+msgid "Info URL"
+msgstr ""
+
+#: shariff-wp.php:187
 msgid "Before"
 msgstr "Antes"
 
-#: shariff-wp.php:160
+#: shariff-wp.php:190
 msgid "After"
 msgstr "Después"
 
-#: shariff-wp.php:161
+#: shariff-wp.php:191
 msgid "Show the sharing buttons before or after the article."
 msgstr "Mostrar los botones de compartir antes o después del artículo."
 
-#: shariff-wp.php:188
+#: shariff-wp.php:224
 msgid "Used for services such as Pinterest"
 msgstr "Se utiliza para servicios tales como Pinterest"
 
-#: shariff-wp.php:203
+#: shariff-wp.php:239
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: shariff-wp.php:206
+#: shariff-wp.php:242
 msgid "Vertical"
 msgstr "Vertical"
 
-#: shariff-wp.php:219
+#: shariff-wp.php:261
 msgid "Colored"
 msgstr "Colorado"
 
-#: shariff-wp.php:222
+#: shariff-wp.php:264
 msgid "Grey"
 msgstr "Gris"
 
-#: shariff-wp.php:225
+#: shariff-wp.php:267
 msgid "White"
 msgstr "Blanco"
 
-#: shariff-wp.php:234
+#: shariff-wp.php:270
+msgid "Round"
+msgstr "﻿Redonda"
+
+#: shariff-wp.php:279
 msgid "Shariff configuration"
 msgstr "Configuración Shariff"
 
-#: shariff-wp.php:237
+#: shariff-wp.php:282
 msgid "You're using PHP 5.4 or greater."
 msgstr "Usted está utilizando PHP 5.4 o mayor."
 
-#: shariff-wp.php:239
+#: shariff-wp.php:284
 msgid ""
 "You're using an outdated PHP version which will cause problems. Please "
 "update PHP to 5.4 or greater to have full support."
 msgstr ""
-"Usted está utilizando una versión de PHP obsoleta que causará "
-"problemas. Por favor, actualice PHP 5.4 o superior para tener apoyo."
+"Usted está utilizando una versión de PHP obsoleta que causará problemas. Por "
+"favor, actualice PHP 5.4 o superior para tener apoyo."
 
-#: shariff-wp.php:257
+#: shariff-wp.php:302
 msgid "Shariff settings"
 msgstr "Ajustes Shariff"
 
-#: shariff-wp.php:263
+#: shariff-wp.php:308
 msgid "Deactivate Shariff?"
 msgstr "Desactivar Shariff?"
+
+#~ msgid "Experimental"
+#~ msgstr "Experimental"
+
+#~ msgid "Color"
+#~ msgstr "Color"
